@@ -200,6 +200,7 @@ const addBookToReadingList = (option) => {
     } to your Reading List. \n`
   );
   // prompt for more options
+  displayMainMenu();
 };
 
 showPrompt();
