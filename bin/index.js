@@ -154,6 +154,52 @@ const addToReadingListMenu = () => {
     console.log(`${index + 1}: Add ${title} to your Reading List`);
   });
   // prompt for user selection
+  addToReadingListPrompt();
+};
+
+const addToReadingListPrompt = (books) => {
+  const addToListSchema = {
+    name: 'option',
+    description: 'Book number',
+    message: 'No input received. Please try again.',
+    type: 'string',
+    required: true,
+  };
+
+  prompt.get([addToListSchema], addToReadingListOptions);
+};
+
+const addToReadingListOptions = (err, selection) => {
+  switch (selection.option) {
+    case '1':
+      addBookToReadingList(0);
+      break;
+    case '2':
+      addBookToReadingList(1);
+      break;
+    case '3':
+      addBookToReadingList(2);
+      break;
+    case '4':
+      addBookToReadingList(3);
+      break;
+    case '5':
+      addBookToReadingList(4);
+      break;
+    default:
+      addToReadingListPrompt();
+      break;
+  }
+};
+
+const addBookToReadingList = (option) => {
+  readingList.push(results[option]);
+  console.log(
+    `\nSuccessfully added ${
+      readingList[readingList.length - 1].title
+    } to your Reading List. \n`
+  );
+  // prompt for more options
 };
 
 showPrompt();
