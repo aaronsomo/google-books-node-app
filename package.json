@@ -1,0 +1,28 @@
+{
+  "name": "google-books-node-app",
+  "version": "1.0.0",
+  "description": "command line application",
+  "main": "bin/index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aaronsomo/google-books-node-app.git"
+  },
+  "author": "aaron southammavong",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aaronsomo/google-books-node-app/issues"
+  },
+  "homepage": "https://github.com/aaronsomo/google-books-node-app#readme",
+  "bin": {
+    "hello": "./bin/index.js"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "mocha": "^7.1.1",
+    "prompt": "^1.0.0",
+    "yargs": "^13.2.4"
+  }
+}
