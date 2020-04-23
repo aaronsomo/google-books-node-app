@@ -17,7 +17,7 @@ describe('Booklist', function () {
   });
 
   describe('Stored results', function () {
-    it('should return an array of items', function () {
+    it('should return an array of 5 items', function () {
       books = [
         {
           volumeInfo: {
@@ -56,6 +56,17 @@ describe('Booklist', function () {
         },
       ];
       assert.equal(5, index_test.storeResults(books));
+    });
+  });
+});
+
+describe('Menu Selection', function () {
+  describe('Reading List', function () {
+    it('should return the contents of displayResult()', function () {
+      assert.equal(
+        'displayResults',
+        index_test.menuSelection(null, { input: 1 })
+      );
     });
   });
 });

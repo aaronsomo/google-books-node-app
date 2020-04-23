@@ -8,6 +8,19 @@ prompt.start();
 prompt.colors = false;
 prompt.message = '';
 
+const readingList = [
+  {
+    title: 'Eloquent JavaScript: A Modern Introduction to Programming',
+    authors: 'Marijn Haverbeke',
+    publisher: 'ABC Publisher',
+  },
+  {
+    title: 'Cracking the Coding Interview',
+    authors: 'Gayle Laakmann McDowell',
+    publisher: 'ABC Publisher',
+  },
+];
+
 const showPrompt = () => {
   const schema = {
     name: 'query',
@@ -42,6 +55,7 @@ const getRequest = (err, user_input) => {
         // });
         storeResults(data.items);
         displayResults(results);
+        displayMainMenu();
       }
       return data;
     })
@@ -73,11 +87,61 @@ const displayResults = (books) => {
   const space4 = '    ';
   const space5 = '     ';
 
+  console.log('\n');
   books.forEach(({ title, authors, publisher }, index) => {
     console.log(`${index + 1}. Title${space4}: ${title}`);
     console.log(`${space3}Author(s): ${authors}`);
     console.log(`${space3}Publisher: ${publisher}\n`);
   });
+
+  return 'displayResults';
+};
+
+const displayMainMenu = () => {
+  console.log('--- Main Menu ---');
+  console.log('Please enter the number of a corresponding option: \n');
+  console.log('1. View your current Reading List');
+  console.log('2. Add to your Reading List');
+  console.log('3. Start a new search');
+  console.log('4. Exit \n');
+
+  mainMenuPrompt();
+};
+
+const mainMenuPrompt = () => {
+  const menuSchema = {
+    name: 'input',
+    description: 'Please choose an option',
+    message: 'No input received. Please try again.',
+    type: 'string',
+    required: true,
+  };
+
+  prompt.get([menuSchema], mainMenuSelection);
+};
+
+const mainMenuSelection = (err, selection) => {
+  switch (selection.input) {
+    case '1':
+      // function to show current reading list
+      displayResults(readingList);
+      displayMainMenu();
+      mainMenuPrompt();
+      //   return 'displayResults';
+      break;
+    case '2':
+      // function to add to reading list
+      break;
+    case '3':
+      // call search function for another query
+      break;
+    case '4':
+      console.log('\nSee you next time!\n');
+      break;
+    default:
+      mainMenuPrompt();
+      break;
+  }
 };
 
 showPrompt();
@@ -85,4 +149,5 @@ showPrompt();
 module.exports = {
   getRequest,
   storeResults,
+  mainMenuSelection,
 };
