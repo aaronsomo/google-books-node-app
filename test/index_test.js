@@ -15,4 +15,47 @@ describe('Booklist', function () {
       assert.equal(5, books.length);
     });
   });
+
+  describe('Stored results', function () {
+    it('should return an array of items', function () {
+      books = [
+        {
+          volumeInfo: {
+            title: 'book1',
+            author: 'author1',
+            publisher: 'publisher1',
+          },
+        },
+        {
+          volumeInfo: {
+            title: 'book2',
+            author: 'author2',
+            publisher: 'publisher2',
+          },
+        },
+        {
+          volumeInfo: {
+            title: 'book3',
+            author: 'author3',
+            publisher: 'publisher3',
+          },
+        },
+        {
+          volumeInfo: {
+            title: 'book4',
+            author: 'author4',
+            publisher: 'publisher4',
+          },
+        },
+        {
+          volumeInfo: {
+            title: 'book5',
+            author: 'author5',
+            publisher: 'publisher5',
+          },
+        },
+      ];
+      assert.equal(5, index_test.storeResults(books));
+    });
+  });
 });

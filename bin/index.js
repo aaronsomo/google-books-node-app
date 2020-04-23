@@ -41,19 +41,20 @@ const getRequest = (err, user_input) => {
         //   console.log('------------------------');
         // });
         storeResults(data.items);
+        displayResults(results);
       }
       return data;
     })
     //   .then((data) => console.log('end of the request: ', data.totalItems))
     .then((data) => {
-      return data.items.length;
+      return data.items;
     })
     .catch((err) => console.error(err));
 };
 
 const storeResults = (books) => {
+  //   console.log(books);
   results = [];
-
   books.forEach(({ volumeInfo }) => {
     results.push({
       title: volumeInfo.title,
@@ -61,12 +62,27 @@ const storeResults = (books) => {
       publisher: volumeInfo.publisher || 'unknown',
     });
   });
-  console.log(results);
-  return results;
+  //   console.log(results);
+  return results.length;
+};
+
+const displayResults = (books) => {
+  //   console.log(books);
+  // added spacers to format output
+  const space3 = '   ';
+  const space4 = '    ';
+  const space5 = '     ';
+
+  books.forEach(({ title, authors, publisher }, index) => {
+    console.log(`${index + 1}. Title${space4}: ${title}`);
+    console.log(`${space3}Author(s): ${authors}`);
+    console.log(`${space3}Publisher: ${publisher}\n`);
+  });
 };
 
 showPrompt();
 
 module.exports = {
   getRequest,
+  storeResults,
 };
