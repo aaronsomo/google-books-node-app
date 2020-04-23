@@ -21,37 +21,48 @@ const showPrompt = () => {
 };
 
 const getRequest = (err, user_input) => {
-  console.log(user_input);
+  //   console.log(user_input);
   const query = encodeURI(user_input.query);
   const url = `https://www.googleapis.com/books/v1/volumes?maxResults=5&q=${query}`;
 
   const books = {};
 
-  if (query.length === 0) {
-    console.log('please try again');
-  } else {
-    axios
-      .get(url, { headers: { Accept: 'application/json' } })
-      .then(({ data }) => {
-        // if search returns nothing
-        if (data.totalItems === 0) {
-          console.log("No books found :'( . Please try again.");
-          showPrompt();
-        } else {
-          data.items.forEach(({ volumeInfo }) => {
-            console.log(volumeInfo.title);
-            console.log(volumeInfo.authors);
-            console.log('------------------------');
-          });
-        }
-        return data;
-      })
-      //   .then((data) => console.log('end of the request: ', data.totalItems))
-      .then((data) => {
-        return data.items.length;
-      })
-      .catch((err) => console.error(err));
-  }
+  axios
+    .get(url, { headers: { Accept: 'application/json' } })
+    .then(({ data }) => {
+      // if search returns nothing
+      if (data.totalItems === 0) {
+        console.log("No books found :'( . Please try again.");
+        showPrompt();
+      } else {
+        // data.items.forEach(({ volumeInfo }) => {
+        //   console.log(volumeInfo.title);
+        //   console.log(volumeInfo.authors);
+        //   console.log('------------------------');
+        // });
+        storeResults(data.items);
+      }
+      return data;
+    })
+    //   .then((data) => console.log('end of the request: ', data.totalItems))
+    .then((data) => {
+      return data.items.length;
+    })
+    .catch((err) => console.error(err));
+};
+
+const storeResults = (books) => {
+  results = [];
+
+  books.forEach(({ volumeInfo }) => {
+    results.push({
+      title: volumeInfo.title,
+      authors: volumeInfo.authors || 'unknown',
+      publisher: volumeInfo.publisher || 'unknown',
+    });
+  });
+  console.log(results);
+  return results;
 };
 
 showPrompt();

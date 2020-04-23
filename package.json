@@ -4,7 +4,8 @@
   "description": "command line application",
   "main": "bin/index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "start": "node bin/index.js"
   },
   "repository": {
     "type": "git",
