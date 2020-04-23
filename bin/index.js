@@ -94,7 +94,7 @@ const displayResults = (books) => {
     console.log(`${space3}Publisher: ${publisher}\n`);
   });
 
-  //   return 'displayResults';
+  return 'displayResults';
 };
 
 const displayMainMenu = () => {
@@ -146,13 +146,14 @@ const mainMenuSelection = (err, selection) => {
 };
 
 const addToReadingListMenu = () => {
-  // grab results array and iterate to log options
+  displayResults(results);
+
   console.log(
     'Please enter the number corresponding to the book you would like to add. \n'
   );
-  results.forEach(({ title, authors, publisher }, index) => {
-    console.log(`${index + 1}: Add ${title} to your Reading List`);
-  });
+  //   results.forEach((title, index) => {
+  //     console.log(`${index + 1}: Add ${title} to your Reading List`);
+  //   });
   // prompt for user selection
   addToReadingListPrompt();
 };
@@ -199,6 +200,7 @@ const addBookToReadingList = (option) => {
       readingList[readingList.length - 1].title
     } to your Reading List. \n`
   );
+
   // prompt for more options
   displayMainMenu();
 };
