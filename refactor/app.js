@@ -122,8 +122,8 @@ class App {
   }
 
   addToReadingListMenu() {
-    console.log('console log from addToReadingListMenu: ', this.results);
-    this.displayResults(this.results);
+    console.log('console log from addToReadingListMenu: ', results);
+    this.displayResults(results);
     console.log(
       'Please enter the number corresponding to the book you would like to add. \n'
     );
@@ -167,8 +167,11 @@ class App {
   }
 
   addBookToReadingList(option) {
-    console.log(this.results.booklist[option]);
-    this.readingList.booklist.push(this.results.booklist[option]);
+    console.log(
+      'console log from addBookToReadingList: ',
+      results.booklist[option]
+    );
+    this.readingList.booklist.push(results.booklist[option]);
     console.log(
       `\nSuccessfully added ${
         this.readingList.booklist[this.readingList.booklist.length - 1].title
