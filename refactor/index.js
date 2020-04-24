@@ -9,6 +9,7 @@ class App {
     prompt.colors = false;
     prompt.message = '';
     this.results = [];
+    this.readingList = [];
 
     this.getRequest = this.getRequest.bind(this);
     this.displayResults = this.displayResults.bind(this);
@@ -79,11 +80,15 @@ class App {
     const space4 = '    ';
 
     console.log('\n');
-    booklist.forEach(({ title, authors, publisher }, index) => {
-      console.log(`${index + 1}. Title${space4}: ${title}`);
-      console.log(`${space3}Author(s): ${authors}`);
-      console.log(`${space3}Publisher: ${publisher}\n`);
-    });
+    if (booklist === undefined) {
+      console.log('Sorry, the list is currently empty.\n');
+    } else {
+      booklist.forEach(({ title, authors, publisher }, index) => {
+        console.log(`${index + 1}. Title${space4}: ${title}`);
+        console.log(`${space3}Author(s): ${authors}`);
+        console.log(`${space3}Publisher: ${publisher}\n`);
+      });
+    }
 
     return 'displayResults';
   }
@@ -114,8 +119,8 @@ class App {
   mainMenuSelection(err, selection) {
     switch (selection.input) {
       case '1':
-        displayResults(readingList);
-        displayMainMenu();
+        this.displayResults(this.readingList) || 'Your list is currently empty';
+        this.displayMainMenu();
         //   return 'displayResults';
         break;
       case '2':
