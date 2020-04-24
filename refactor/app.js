@@ -136,21 +136,29 @@ class App {
   }
 
   addToReadingListOptions(err, user_input) {
+    // switch (user_input.option) {
+    //   case '1':
+    //     this.addBookToReadingList(0);
+    //     break;
+    //   case '2':
+    //     this.addBookToReadingList(1);
+    //     break;
+    //   case '3':
+    //     this.addBookToReadingList(2);
+    //     break;
+    //   case '4':
+    //     this.addBookToReadingList(3);
+    //     break;
+    //   case '5':
+    //     this.addBookToReadingList(4);
+    //     break;
+    //   default:
+    //     this.addToReadingListPrompt();
+    //     break;
+    // }
     switch (user_input.option) {
-      case '1':
-        this.addBookToReadingList(0);
-        break;
-      case '2':
-        this.addBookToReadingList(1);
-        break;
-      case '3':
-        this.addBookToReadingList(2);
-        break;
-      case '4':
-        this.addBookToReadingList(3);
-        break;
-      case '5':
-        this.addBookToReadingList(4);
+      case user_input.option:
+        this.addBookToReadingList(user_input.option - 1);
         break;
       default:
         this.addToReadingListPrompt();
