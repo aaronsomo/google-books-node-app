@@ -1,9 +1,13 @@
 const axios = require('axios');
-
+const fs = require('fs');
+const path = require('path');
 const prompt = require('prompt');
 // const ReadingList = require('./readingList').ReadingList;
 const GetRequest = require('./query').GetRequest;
-const booklist = require('./data');
+
+// const booklist = [];
+const rawdata = fs.readFileSync(path.join(__dirname, 'data.json'));
+const booklist = JSON.parse(rawdata);
 
 class App {
   constructor() {
@@ -47,6 +51,7 @@ class App {
   }
 
   showPrompt() {
+    console.clear();
     console.log('\n');
     const schema = {
       name: 'query',
@@ -62,7 +67,7 @@ class App {
   displayResults({ booklist }) {
     // added spacers to format output
     // console.log('this is from displayResults: ', booklist);
-    // console.log(booklist);
+    console.log(booklist);
     const space3 = '   ';
     const space4 = '    ';
 
@@ -177,6 +182,10 @@ class App {
     //   results.booklist[option]
     // );
     this.readingList.booklist.push(results.booklist[option]);
+    let data = JSON.stringify(this.readingList, null, 2);
+    fs.writeFile(path.join(__dirname, 'data.json'), data, (err) => {
+      if (err) throw err;
+    });
     console.clear();
     console.log(
       `\nSuccessfully added "${
