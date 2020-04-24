@@ -1,7 +1,6 @@
 const App = require('./app');
 const prompt = require('prompt');
 
-const app = new App();
 prompt.start();
 prompt.colors = false;
 prompt.message = '';
