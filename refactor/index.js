@@ -9,6 +9,12 @@ class App {
     prompt.colors = false;
     prompt.message = '';
     this.results = [];
+
+    this.getRequest = this.getRequest.bind(this);
+    this.displayResults = this.displayResults.bind(this);
+    this.displayMainMenu = this.displayMainMenu.bind(this);
+    this.mainMenuPrompt = this.mainMenuPrompt.bind(this);
+    this.mainMenuSelection = this.mainMenuSelection.bind(this);
   }
 
   showPrompt() {
@@ -20,7 +26,7 @@ class App {
       required: true,
     };
 
-    prompt.get([schema], this.getRequest.bind(this));
+    prompt.get([schema], this.getRequest);
   }
 
   getRequest(err, user_input) {
@@ -55,6 +61,7 @@ class App {
           //   console.log(this.results);
           this.results = new ReadingList(data.items);
           this.displayResults(this.results);
+          this.displayMainMenu();
         }
         return data;
       })
@@ -70,7 +77,6 @@ class App {
     // added spacers to format output
     const space3 = '   ';
     const space4 = '    ';
-    const space5 = '     ';
 
     console.log('\n');
     booklist.forEach(({ title, authors, publisher }, index) => {
@@ -80,6 +86,54 @@ class App {
     });
 
     return 'displayResults';
+  }
+
+  displayMainMenu() {
+    console.log('--- Main Menu ---');
+    console.log('Please enter the number of a corresponding option: \n');
+    console.log('1. View your current Reading List');
+    console.log('2. Add to your Reading List');
+    console.log('3. Start a new search');
+    console.log('4. Exit \n');
+
+    this.mainMenuPrompt();
+  }
+
+  mainMenuPrompt() {
+    const menuSchema = {
+      name: 'input',
+      description: 'Please choose an option',
+      message: 'No input received. Please try again.',
+      type: 'string',
+      required: true,
+    };
+
+    prompt.get([menuSchema], this.mainMenuSelection);
+  }
+
+  mainMenuSelection(err, selection) {
+    switch (selection.input) {
+      case '1':
+        displayResults(readingList);
+        displayMainMenu();
+        //   return 'displayResults';
+        break;
+      case '2':
+        // function to add to reading list
+        addToReadingListMenu();
+        break;
+      case '3':
+        // call search function for another query
+        console.log('\n');
+        showPrompt();
+        break;
+      case '4':
+        console.log('\nSee you next time!\n');
+        break;
+      default:
+        mainMenuPrompt();
+        break;
+    }
   }
 }
 
