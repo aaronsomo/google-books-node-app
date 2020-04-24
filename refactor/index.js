@@ -2,6 +2,7 @@ const axios = require('axios');
 
 const prompt = require('prompt');
 const ReadingList = require('./readingList').ReadingList;
+const GetRequest = require('./query').GetRequest;
 
 class App {
   constructor() {
@@ -24,16 +25,24 @@ class App {
       ],
     };
 
+    this.getRequest = new GetRequest();
+
+    this.init = this.init.bind(this);
     this.showPrompt = this.showPrompt.bind(this);
-    this.getRequest = this.getRequest.bind(this);
+    // this.getRequest = this.getRequest.bind(this);
     this.displayResults = this.displayResults.bind(this);
     this.displayMainMenu = this.displayMainMenu.bind(this);
     this.mainMenuPrompt = this.mainMenuPrompt.bind(this);
     this.mainMenuSelection = this.mainMenuSelection.bind(this);
     this.addToReadingListMenu = this.addToReadingListMenu.bind(this);
-    // this.addToReadingListPrompt = this.addToReadingListPrompt.bind(this);
+    this.addToReadingListPrompt = this.addToReadingListPrompt.bind(this);
     this.addToReadingListOptions = this.addToReadingListOptions.bind(this);
     this.addBookToReadingList = this.addBookToReadingList.bind(this);
+  }
+
+  init() {
+    this.showPrompt();
+    // this.displayMainMenu();
   }
 
   showPrompt() {
@@ -45,34 +54,31 @@ class App {
       required: true,
     };
 
-    prompt.get([schema], this.getRequest);
+    prompt.get([schema], this.getRequest.getRequest.bind(this.getRequest));
   }
 
-  getRequest(err, user_input) {
-    //   console.log(user_input);
-    const query = encodeURI(user_input.query);
-    const url = `https://www.googleapis.com/books/v1/volumes?maxResults=5&q=${query}`;
+  //   getRequest(err, user_input) {
+  //     const query = encodeURI(user_input.query);
+  //     const url = `https://www.googleapis.com/books/v1/volumes?maxResults=5&q=${query}`;
 
-    axios
-      .get(url, { headers: { Accept: 'application/json' } })
-      .then(({ data }) => {
-        // if search returns nothing
-        if (data.totalItems === 0) {
-          console.log("No books found :'( . Please try again.");
-          showPrompt();
-        } else {
-          this.results = new ReadingList(data.items);
-          this.displayResults(this.results);
-          this.displayMainMenu();
-        }
-        return data;
-      })
-      //   .then((data) => console.log('end of the request: ', data.totalItems))
-      .then((data) => {
-        return data.items;
-      })
-      .catch((err) => console.error(err));
-  }
+  //     axios
+  //       .get(url, { headers: { Accept: 'application/json' } })
+  //       .then(({ data }) => {
+  //         if (data.totalItems === 0) {
+  //           console.log("No books found :'( . Please try again.");
+  //           showPrompt();
+  //         } else {
+  //           this.results = new ReadingList(data.items);
+  //           this.displayResults(this.results);
+  //           this.displayMainMenu();
+  //         }
+  //         return data;
+  //       })
+  //       .then((data) => {
+  //         return data.items;
+  //       })
+  //       .catch((err) => console.error(err));
+  //   }
 
   displayResults({ booklist }) {
     // added spacers to format output
@@ -142,7 +148,6 @@ class App {
 
   addToReadingListMenu() {
     this.displayResults(this.results);
-
     console.log(
       'Please enter the number corresponding to the book you would like to add. \n'
     );
@@ -200,11 +205,11 @@ class App {
 }
 
 let app = new App();
-app.showPrompt();
+app.init();
 
 module.exports = App;
 
 // tests
 // write a test that adds a book to list
-// write a returns current reading list
+// write a test returns current reading list
 // write a test that starts a new search
