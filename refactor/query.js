@@ -4,6 +4,7 @@ const axios = require('axios');
 
 class GetRequest {
   getRequest(err, user_input) {
+    console.log('console log from query: ', app);
     const query = encodeURI(user_input.query);
     const url = `https://www.googleapis.com/books/v1/volumes?maxResults=5&q=${query}`;
 
