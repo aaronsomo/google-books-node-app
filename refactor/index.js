@@ -24,13 +24,16 @@ class App {
       ],
     };
 
+    this.showPrompt = this.showPrompt.bind(this);
     this.getRequest = this.getRequest.bind(this);
     this.displayResults = this.displayResults.bind(this);
     this.displayMainMenu = this.displayMainMenu.bind(this);
     this.mainMenuPrompt = this.mainMenuPrompt.bind(this);
     this.mainMenuSelection = this.mainMenuSelection.bind(this);
-    this.addToReadingListMenu = this.addToReadingListMenu.bind(this);
-    this.showPrompt = this.showPrompt.bind(this);
+    // this.addToReadingListMenu = this.addToReadingListMenu.bind(this);
+    // this.addToReadingListPrompt = this.addToReadingListPrompt.bind(this);
+    // this.addToReadingListOptions = this.addToReadingListOptions(this);
+    this.addBookToReadingList = this.addBookToReadingList.bind(this);
   }
 
   showPrompt() {
@@ -166,10 +169,10 @@ class App {
     //     console.log(`${index + 1}: Add ${title} to your Reading List`);
     //   });
     // prompt for user selection
-    // this.addToReadingListPrompt();
+    this.addToReadingListPrompt();
   }
 
-  addToReadingListPrompt(books) {
+  addToReadingListPrompt() {
     const addToListSchema = {
       name: 'option',
       description: 'Book number',
@@ -178,30 +181,7 @@ class App {
       required: true,
     };
 
-    prompt.get([addToListSchema], addToReadingListOptions);
-  }
-
-  addToReadingListOptions(err, selection) {
-    switch (selection.option) {
-      case '1':
-        addBookToReadingList(0);
-        break;
-      case '2':
-        addBookToReadingList(1);
-        break;
-      case '3':
-        addBookToReadingList(2);
-        break;
-      case '4':
-        addBookToReadingList(3);
-        break;
-      case '5':
-        addBookToReadingList(4);
-        break;
-      default:
-        addToReadingListPrompt();
-        break;
-    }
+    prompt.get([addToListSchema], this.addToReadingListOptions);
   }
 
   addBookToReadingList(option) {
@@ -213,7 +193,31 @@ class App {
     );
 
     // prompt for more options
-    displayMainMenu();
+    this.displayMainMenu();
+  }
+
+  addToReadingListOptions(err, selection) {
+    console.log(selection);
+    switch (selection.option) {
+      case '1':
+        this.addBookToReadingList(0);
+        break;
+      case '2':
+        this.addBookToReadingList(1);
+        break;
+      case '3':
+        this.addBookToReadingList(2);
+        break;
+      case '4':
+        this.addBookToReadingList(3);
+        break;
+      case '5':
+        this.addBookToReadingList(4);
+        break;
+      default:
+        this.addToReadingListPrompt();
+        break;
+    }
   }
 }
 
