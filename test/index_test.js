@@ -65,7 +65,7 @@ describe('Menu Selection', function () {
     it('should return the contents of displayResult()', function () {
       assert.equal(
         'displayResults',
-        index_test.menuSelection(null, { input: 1 })
+        index_test.mainMenuSelection(null, { input: 1 })
       );
     });
   });
