@@ -61,23 +61,6 @@ class App {
           console.log("No books found :'( . Please try again.");
           showPrompt();
         } else {
-          // data.items.forEach(({ volumeInfo }) => {
-          //   console.log(volumeInfo.title);
-          //   console.log(volumeInfo.authors);
-          //   console.log('------------------------');
-          // });
-          // storeResults(data.items);
-          // displayResults(results);
-          // displayMainMenu();
-
-          //   data.items.forEach(({ volumeInfo }) => {
-          //     this.results.push({
-          //       title: volumeInfo.title,
-          //       authors: volumeInfo.authors || 'unknown',
-          //       publisher: volumeInfo.publisher || 'unknown',
-          //     });
-          //   });
-          //   console.log(this.results);
           this.results = new ReadingList(data.items);
           this.displayResults(this.results);
           this.displayMainMenu();
@@ -92,7 +75,6 @@ class App {
   }
 
   displayResults({ booklist }) {
-    //   console.log(books);
     // added spacers to format output
     const space3 = '   ';
     const space4 = '    ';
@@ -139,7 +121,6 @@ class App {
       case '1':
         this.displayResults(this.readingList) || 'Your list is currently empty';
         this.displayMainMenu();
-        //   return 'displayResults';
         break;
       case '2':
         // function to add to reading list
@@ -165,10 +146,7 @@ class App {
     console.log(
       'Please enter the number corresponding to the book you would like to add. \n'
     );
-    //   results.forEach((title, index) => {
-    //     console.log(`${index + 1}: Add ${title} to your Reading List`);
-    //   });
-    // prompt for user selection
+
     this.addToReadingListPrompt();
   }
 
