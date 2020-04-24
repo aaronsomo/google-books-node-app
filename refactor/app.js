@@ -1,8 +1,9 @@
 const axios = require('axios');
 
 const prompt = require('prompt');
-const ReadingList = require('./readingList').ReadingList;
+// const ReadingList = require('./readingList').ReadingList;
 const GetRequest = require('./query').GetRequest;
+const booklist = require('./data');
 
 class App {
   constructor() {
@@ -10,20 +11,21 @@ class App {
     prompt.colors = false;
     prompt.message = '';
     this.results = [];
-    this.readingList = {
-      booklist: [
-        {
-          title: 'Eloquent JavaScript: A Modern Introduction to Programming',
-          authors: 'Marijn Haverbeke',
-          publisher: 'ABC Publisher',
-        },
-        {
-          title: 'Cracking the Coding Interview',
-          authors: 'Gayle Laakmann McDowell',
-          publisher: 'ABC Publisher',
-        },
-      ],
-    };
+    // this.readingList = {
+    //   booklist: [
+    //     {
+    //       title: 'Eloquent JavaScript: A Modern Introduction to Programming',
+    //       authors: 'Marijn Haverbeke',
+    //       publisher: 'ABC Publisher',
+    //     },
+    //     {
+    //       title: 'Cracking the Coding Interview',
+    //       authors: 'Gayle Laakmann McDowell',
+    //       publisher: 'ABC Publisher',
+    //     },
+    //   ],
+    // };
+    this.readingList = booklist;
 
     this.getRequest = new GetRequest();
 
@@ -60,6 +62,7 @@ class App {
   displayResults({ booklist }) {
     // added spacers to format output
     // console.log('this is from displayResults: ', booklist);
+    // console.log(booklist);
     const space3 = '   ';
     const space4 = '    ';
 
@@ -133,6 +136,17 @@ class App {
     this.addToReadingListPrompt();
   }
 
+  addToReadingListPrompt() {
+    const addToListSchema = {
+      name: 'option',
+      description: 'Book number',
+      message: 'No input received. Please try again.',
+      type: 'string',
+      required: true,
+    };
+    prompt.get([addToListSchema], this.addToReadingListOptions);
+  }
+
   addToReadingListOptions(err, user_input) {
     // console.log(user_input);
     switch (user_input.option) {
@@ -157,17 +171,6 @@ class App {
     }
   }
 
-  addToReadingListPrompt() {
-    const addToListSchema = {
-      name: 'option',
-      description: 'Book number',
-      message: 'No input received. Please try again.',
-      type: 'string',
-      required: true,
-    };
-    prompt.get([addToListSchema], this.addToReadingListOptions);
-  }
-
   addBookToReadingList(option) {
     // console.log(
     //   'console log from addBookToReadingList: ',
@@ -185,9 +188,6 @@ class App {
     this.displayMainMenu();
   }
 }
-
-// let app = new App();
-// app.init();
 
 module.exports = App;
 
