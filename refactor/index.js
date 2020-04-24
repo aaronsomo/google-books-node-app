@@ -1,6 +1,7 @@
 const axios = require('axios');
 
 const prompt = require('prompt');
+const ReadingList = require('./readingList').ReadingList;
 
 class App {
   constructor() {
@@ -43,13 +44,17 @@ class App {
           // storeResults(data.items);
           // displayResults(results);
           // displayMainMenu();
-          data.items.forEach(({ volumeInfo }) => {
-            this.results.push({
-              title: volumeInfo.title,
-              authors: volumeInfo.authors || 'unknown',
-              publisher: volumeInfo.publisher || 'unknown',
-            });
-          });
+
+          //   data.items.forEach(({ volumeInfo }) => {
+          //     this.results.push({
+          //       title: volumeInfo.title,
+          //       authors: volumeInfo.authors || 'unknown',
+          //       publisher: volumeInfo.publisher || 'unknown',
+          //     });
+          //   });
+          //   console.log(this.results);
+          this.results = new ReadingList(data.items);
+          //   this.displayResults(this.results);
           console.log(this.results);
         }
         return data;
@@ -59,6 +64,23 @@ class App {
         return data.items;
       })
       .catch((err) => console.error(err));
+  }
+
+  displayResults(books) {
+    //   console.log(books);
+    // added spacers to format output
+    const space3 = '   ';
+    const space4 = '    ';
+    const space5 = '     ';
+
+    console.log('\n');
+    books.forEach(({ title, authors, publisher }, index) => {
+      console.log(`${index + 1}. Title${space4}: ${title}`);
+      console.log(`${space3}Author(s): ${authors}`);
+      console.log(`${space3}Publisher: ${publisher}\n`);
+    });
+
+    return 'displayResults';
   }
 }
 
