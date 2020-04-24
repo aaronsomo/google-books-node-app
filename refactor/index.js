@@ -54,8 +54,7 @@ class App {
           //   });
           //   console.log(this.results);
           this.results = new ReadingList(data.items);
-          //   this.displayResults(this.results);
-          console.log(this.results);
+          this.displayResults(this.results);
         }
         return data;
       })
@@ -66,7 +65,7 @@ class App {
       .catch((err) => console.error(err));
   }
 
-  displayResults(books) {
+  displayResults({ booklist }) {
     //   console.log(books);
     // added spacers to format output
     const space3 = '   ';
@@ -74,7 +73,7 @@ class App {
     const space5 = '     ';
 
     console.log('\n');
-    books.forEach(({ title, authors, publisher }, index) => {
+    booklist.forEach(({ title, authors, publisher }, index) => {
       console.log(`${index + 1}. Title${space4}: ${title}`);
       console.log(`${space3}Author(s): ${authors}`);
       console.log(`${space3}Publisher: ${publisher}\n`);
