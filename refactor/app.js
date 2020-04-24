@@ -122,7 +122,7 @@ class App {
   }
 
   addToReadingListMenu() {
-    console.log('console log from addToReadingListMenu: ', results);
+    console.log('console log from addToReadingListMenu: ', this.results);
     this.displayResults(this.results);
     console.log(
       'Please enter the number corresponding to the book you would like to add. \n'

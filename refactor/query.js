@@ -4,7 +4,6 @@ const axios = require('axios');
 
 class GetRequest {
   getRequest(err, user_input) {
-    console.log('console log from query: ', app);
     const query = encodeURI(user_input.query);
     const url = `https://www.googleapis.com/books/v1/volumes?maxResults=5&q=${query}`;
 
@@ -15,9 +14,10 @@ class GetRequest {
           console.log("No books found :'( . Please try again.");
           showPrompt();
         } else {
-          this.results = new ReadingList(data.items);
-          app.displayResults(this.results);
-          app.displayMainMenu();
+          console.log('console log from query.js', Object.keys(global));
+          global.results = new ReadingList(data.items);
+          global.app.displayResults(global.results);
+          global.app.displayMainMenu();
         }
         return data;
       })
