@@ -29,6 +29,8 @@ class App {
     this.displayMainMenu = this.displayMainMenu.bind(this);
     this.mainMenuPrompt = this.mainMenuPrompt.bind(this);
     this.mainMenuSelection = this.mainMenuSelection.bind(this);
+    this.addToReadingListMenu = this.addToReadingListMenu.bind(this);
+    this.showPrompt = this.showPrompt.bind(this);
   }
 
   showPrompt() {
@@ -138,20 +140,80 @@ class App {
         break;
       case '2':
         // function to add to reading list
-        addToReadingListMenu();
+        this.addToReadingListMenu();
         break;
       case '3':
         // call search function for another query
         console.log('\n');
-        showPrompt();
+        this.showPrompt();
         break;
       case '4':
         console.log('\nSee you next time!\n');
         break;
       default:
-        mainMenuPrompt();
+        this.mainMenuPrompt();
         break;
     }
+  }
+
+  addToReadingListMenu() {
+    this.displayResults(this.results);
+
+    console.log(
+      'Please enter the number corresponding to the book you would like to add. \n'
+    );
+    //   results.forEach((title, index) => {
+    //     console.log(`${index + 1}: Add ${title} to your Reading List`);
+    //   });
+    // prompt for user selection
+    // this.addToReadingListPrompt();
+  }
+
+  addToReadingListPrompt(books) {
+    const addToListSchema = {
+      name: 'option',
+      description: 'Book number',
+      message: 'No input received. Please try again.',
+      type: 'string',
+      required: true,
+    };
+
+    prompt.get([addToListSchema], addToReadingListOptions);
+  }
+
+  addToReadingListOptions(err, selection) {
+    switch (selection.option) {
+      case '1':
+        addBookToReadingList(0);
+        break;
+      case '2':
+        addBookToReadingList(1);
+        break;
+      case '3':
+        addBookToReadingList(2);
+        break;
+      case '4':
+        addBookToReadingList(3);
+        break;
+      case '5':
+        addBookToReadingList(4);
+        break;
+      default:
+        addToReadingListPrompt();
+        break;
+    }
+  }
+
+  addBookToReadingList(option) {
+    readingList.push(results[option]);
+    console.log(
+      `\nSuccessfully added ${
+        readingList[readingList.length - 1].title
+      } to your Reading List. \n`
+    );
+
+    // prompt for more options
+    displayMainMenu();
   }
 }
 
