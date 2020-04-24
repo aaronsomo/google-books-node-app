@@ -4,7 +4,6 @@ const axios = require('axios');
 
 class GetRequest {
   getRequest(err, user_input) {
-    console.log(global.global);
     const query = encodeURI(user_input.query);
     const url = `https://www.googleapis.com/books/v1/volumes?maxResults=5&q=${query}`;
 
@@ -16,8 +15,8 @@ class GetRequest {
           showPrompt();
         } else {
           this.results = new ReadingList(data.items);
-          //   this.displayResults(this.results);
-          //   this.displayMainMenu();
+          app.displayResults(this.results);
+          app.displayMainMenu();
         }
         return data;
       })

@@ -1,6 +1,3 @@
-// Import colors for a colorful ui
-const colors = require('colors/safe');
-
 class Book {
   constructor({ title, authors, publisher }) {
     this.title = title;
