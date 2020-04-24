@@ -9,7 +9,20 @@ class App {
     prompt.colors = false;
     prompt.message = '';
     this.results = [];
-    this.readingList = [];
+    this.readingList = {
+      booklist: [
+        {
+          title: 'Eloquent JavaScript: A Modern Introduction to Programming',
+          authors: 'Marijn Haverbeke',
+          publisher: 'ABC Publisher',
+        },
+        {
+          title: 'Cracking the Coding Interview',
+          authors: 'Gayle Laakmann McDowell',
+          publisher: 'ABC Publisher',
+        },
+      ],
+    };
 
     this.getRequest = this.getRequest.bind(this);
     this.displayResults = this.displayResults.bind(this);
