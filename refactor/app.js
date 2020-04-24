@@ -45,6 +45,7 @@ class App {
   }
 
   showPrompt() {
+    console.log('\n');
     const schema = {
       name: 'query',
       description: 'Please enter a title or author',
@@ -58,10 +59,11 @@ class App {
 
   displayResults({ booklist }) {
     // added spacers to format output
-    console.log('this is from displayResults: ', booklist);
+    // console.log('this is from displayResults: ', booklist);
     const space3 = '   ';
     const space4 = '    ';
 
+    console.clear();
     console.log('\n');
     if (booklist === undefined) {
       console.log('Sorry, the list is currently empty.\n');
@@ -75,8 +77,8 @@ class App {
   }
 
   displayMainMenu() {
-    console.log('--- Main Menu ---');
-    console.log('Please enter the number of a corresponding option: \n');
+    console.log('--- Main Menu ---\n');
+    // console.log('Please enter the number of a corresponding option: \n');
     console.log('1. View your current Reading List');
     console.log('2. Add to your Reading List');
     console.log('3. Start a new search');
@@ -88,7 +90,7 @@ class App {
   mainMenuPrompt() {
     const menuSchema = {
       name: 'input',
-      description: 'Please choose an option',
+      description: 'Please enter the number of a corresponding option',
       message: 'No input received. Please try again.',
       type: 'string',
       required: true,
@@ -132,7 +134,7 @@ class App {
   }
 
   addToReadingListOptions(err, user_input) {
-    console.log(user_input);
+    // console.log(user_input);
     switch (user_input.option) {
       case '1':
         this.addBookToReadingList(0);
@@ -167,15 +169,16 @@ class App {
   }
 
   addBookToReadingList(option) {
-    console.log(
-      'console log from addBookToReadingList: ',
-      results.booklist[option]
-    );
+    // console.log(
+    //   'console log from addBookToReadingList: ',
+    //   results.booklist[option]
+    // );
     this.readingList.booklist.push(results.booklist[option]);
+    console.clear();
     console.log(
-      `\nSuccessfully added ${
+      `\nSuccessfully added "${
         this.readingList.booklist[this.readingList.booklist.length - 1].title
-      } to your Reading List. \n`
+      }" to your Reading List! \n`
     );
 
     // prompt for more options

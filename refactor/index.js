@@ -9,7 +9,7 @@ prompt.message = '';
 const showPrompt = () => {
   const introSchema = {
     name: 'input',
-    description: 'Please select an option',
+    description: 'Please enter the number of a corresponding option',
     message: 'No input found. Please try again.',
     type: 'string',
     required: true,
@@ -26,6 +26,7 @@ const introScreenMenu = (err, user_input) => {
 };
 
 const introScreen = () => {
+  console.clear();
   console.log('\n--- Your Personal Reading List App ---\n');
   console.log('1. View your current Reading List');
   console.log('2. Start a new search');
