@@ -30,9 +30,9 @@ class App {
     this.displayMainMenu = this.displayMainMenu.bind(this);
     this.mainMenuPrompt = this.mainMenuPrompt.bind(this);
     this.mainMenuSelection = this.mainMenuSelection.bind(this);
-    // this.addToReadingListMenu = this.addToReadingListMenu.bind(this);
+    this.addToReadingListMenu = this.addToReadingListMenu.bind(this);
     // this.addToReadingListPrompt = this.addToReadingListPrompt.bind(this);
-    // this.addToReadingListOptions = this.addToReadingListOptions(this);
+    this.addToReadingListOptions = this.addToReadingListOptions.bind(this);
     this.addBookToReadingList = this.addBookToReadingList.bind(this);
   }
 
@@ -172,30 +172,6 @@ class App {
     this.addToReadingListPrompt();
   }
 
-  addToReadingListPrompt() {
-    const addToListSchema = {
-      name: 'option',
-      description: 'Book number',
-      message: 'No input received. Please try again.',
-      type: 'string',
-      required: true,
-    };
-
-    prompt.get([addToListSchema], this.addToReadingListOptions);
-  }
-
-  addBookToReadingList(option) {
-    readingList.push(results[option]);
-    console.log(
-      `\nSuccessfully added ${
-        readingList[readingList.length - 1].title
-      } to your Reading List. \n`
-    );
-
-    // prompt for more options
-    this.displayMainMenu();
-  }
-
   addToReadingListOptions(err, selection) {
     console.log(selection);
     switch (selection.option) {
@@ -219,7 +195,38 @@ class App {
         break;
     }
   }
+
+  addToReadingListPrompt() {
+    const addToListSchema = {
+      name: 'option',
+      description: 'Book number',
+      message: 'No input received. Please try again.',
+      type: 'string',
+      required: true,
+    };
+    prompt.get([addToListSchema], this.addToReadingListOptions);
+  }
+
+  addBookToReadingList(option) {
+    console.log(this.results.booklist[option]);
+    this.readingList.booklist.push(this.results.booklist[option]);
+    console.log(
+      `\nSuccessfully added ${
+        this.readingList.booklist[this.readingList.booklist.length - 1].title
+      } to your Reading List. \n`
+    );
+
+    // prompt for more options
+    this.displayMainMenu();
+  }
 }
 
 let app = new App();
 app.showPrompt();
+
+module.exports = App;
+
+// tests
+// write a test that adds a book to list
+// write a returns current reading list
+// write a test that starts a new search

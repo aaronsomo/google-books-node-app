@@ -1,5 +1,6 @@
-let index_test = require('../bin/index.js');
+// let index_test = require('../bin/index.js');
 let assert = require('assert');
+let App = require('../refactor/index.js');
 
 // console.log(
 //   'console log from line 4: ',
@@ -7,7 +8,22 @@ let assert = require('assert');
 // );
 
 describe('Booklist', function () {
-  describe('Length', function () {
+  it('adds a book to the read list', function () {
+    const app = new App();
+    app.results = [
+      {
+        title: 'fake book',
+        authors: 'aaron somo',
+        publisher: 'jaieger',
+      },
+    ];
+
+    app.addBookToReadingList(0);
+
+    assert.Equals(3, app.readingList.length);
+    assert.Equals('aaron somo', app.readingList[2].authors);
+  });
+  xdescribe('Length', function () {
     it('should return 5', function () {
       books = index_test.getRequest(null, {
         query: 'harry potter',
@@ -16,7 +32,7 @@ describe('Booklist', function () {
     });
   });
 
-  describe('Stored results', function () {
+  xdescribe('Stored results', function () {
     it('should return an array of 5 items', function () {
       books = [
         {
@@ -60,7 +76,7 @@ describe('Booklist', function () {
   });
 });
 
-describe('Menu Selection', function () {
+xdescribe('Menu Selection', function () {
   describe('Reading List', function () {
     it('should return the contents of displayResult()', function () {
       assert.equal(
