@@ -20,7 +20,7 @@ class App {
 
     this.init = this.init.bind(this);
     this.showPrompt = this.showPrompt.bind(this);
-    // this.getRequest = this.getRequest.bind(this);
+    this.getRequest = this.getRequest.getRequest.bind(this);
     this.displayResults = this.displayResults.bind(this);
     this.displayMainMenu = this.displayMainMenu.bind(this);
     this.mainMenuPrompt = this.mainMenuPrompt.bind(this);
@@ -46,7 +46,7 @@ class App {
       required: true,
     };
 
-    prompt.get([schema], this.getRequest.getRequest.bind(this.getRequest));
+    prompt.get([schema], this.getRequest);
   }
 
   displayResults({ booklist }) {
@@ -169,9 +169,9 @@ class App {
   addBookToReadingList(option) {
     this.readingList.booklist.push(results.booklist[option]);
     let data = JSON.stringify(this.readingList, null, 2);
-    fs.writeFile(path.join(__dirname, 'data.json'), data, (err) => {
-      if (err) throw err;
-    });
+    // fs.writeFile(path.join(__dirname, 'data.json'), data, (err) => {
+    //   if (err) throw err;
+    // });
     console.clear();
     console.log(
       `\nSuccessfully added "${

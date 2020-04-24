@@ -1,6 +1,6 @@
 // let index_test = require('../bin/index.js');
 let assert = require('assert');
-let App = require('../refactor/index.js');
+let App = require('../refactor/app');
 
 // console.log(
 //   'console log from line 4: ',
@@ -8,81 +8,42 @@ let App = require('../refactor/index.js');
 // );
 
 describe('Booklist', function () {
+  console.clear();
+  it('returns current reading list', function () {
+    const app = new App();
+    app.displayResults(app.readingList.booklist);
+
+    assert.equal('object', typeof app.readingList.booklist);
+    assert.equal(
+      'Eloquent JavaScript: A Modern Introduction to Programming',
+      app.readingList.booklist[0].title
+    );
+    assert.equal('Marijn Haverbeke', app.readingList.booklist[0].authors);
+    assert.equal('ABC Publisher', app.readingList.booklist[0].publisher);
+  });
+
   it('adds a book to the read list', function () {
     const app = new App();
-    app.results = [
-      {
-        title: 'fake book',
-        authors: 'aaron somo',
-        publisher: 'jaieger',
-      },
-    ];
+    results = {
+      booklist: [
+        {
+          title: 'Test Book',
+          authors: 'Tester',
+          publisher: 'Test Maker',
+        },
+      ],
+    };
 
     app.addBookToReadingList(0);
 
-    assert.Equals(3, app.readingList.length);
-    assert.Equals('aaron somo', app.readingList[2].authors);
-  });
-  xdescribe('Length', function () {
-    it('should return 5', function () {
-      books = index_test.getRequest(null, {
-        query: 'harry potter',
-      });
-      assert.equal(5, books.length);
-    });
-  });
-
-  xdescribe('Stored results', function () {
-    it('should return an array of 5 items', function () {
-      books = [
-        {
-          volumeInfo: {
-            title: 'book1',
-            author: 'author1',
-            publisher: 'publisher1',
-          },
-        },
-        {
-          volumeInfo: {
-            title: 'book2',
-            author: 'author2',
-            publisher: 'publisher2',
-          },
-        },
-        {
-          volumeInfo: {
-            title: 'book3',
-            author: 'author3',
-            publisher: 'publisher3',
-          },
-        },
-        {
-          volumeInfo: {
-            title: 'book4',
-            author: 'author4',
-            publisher: 'publisher4',
-          },
-        },
-        {
-          volumeInfo: {
-            title: 'book5',
-            author: 'author5',
-            publisher: 'publisher5',
-          },
-        },
-      ];
-      assert.equal(5, index_test.storeResults(books));
-    });
+    assert.equal(3, app.readingList.booklist.length);
+    assert.equal('Tester', app.readingList.booklist[2].authors);
   });
 });
 
-xdescribe('Menu Selection', function () {
-  describe('Reading List', function () {
-    it('should return the contents of displayResult()', function () {
-      assert.equal(
-        'displayResults',
-        index_test.mainMenuSelection(null, { input: 1 })
-      );
-    });
+describe('Search Function', function () {
+  it('should add to results', function () {
+    global.app = new App();
+    app.getRequest(null, { query: 'harry potter' });
   });
 });
