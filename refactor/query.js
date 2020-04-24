@@ -12,9 +12,8 @@ class GetRequest {
       .then(({ data }) => {
         if (data.totalItems === 0) {
           console.log("No books found :'( . Please try again.");
-          showPrompt();
+          global.app.showPrompt();
         } else {
-          //   console.log('console log from query.js', Object.keys(global));
           global.results = new ReadingList(data.items);
           global.app.displayResults(global.results);
           global.app.displayMainMenu();

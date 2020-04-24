@@ -1,8 +1,6 @@
-const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
 const prompt = require('prompt');
-// const ReadingList = require('./readingList').ReadingList;
 const GetRequest = require('./query').GetRequest;
 
 // const booklist = [];
@@ -15,20 +13,7 @@ class App {
     prompt.colors = false;
     prompt.message = '';
     this.results = [];
-    // this.readingList = {
-    //   booklist: [
-    //     {
-    //       title: 'Eloquent JavaScript: A Modern Introduction to Programming',
-    //       authors: 'Marijn Haverbeke',
-    //       publisher: 'ABC Publisher',
-    //     },
-    //     {
-    //       title: 'Cracking the Coding Interview',
-    //       authors: 'Gayle Laakmann McDowell',
-    //       publisher: 'ABC Publisher',
-    //     },
-    //   ],
-    // };
+
     this.readingList = booklist;
 
     this.getRequest = new GetRequest();
@@ -51,7 +36,7 @@ class App {
   }
 
   showPrompt() {
-    console.clear();
+    // console.clear();
     console.log('\n');
     const schema = {
       name: 'query',
@@ -66,7 +51,6 @@ class App {
 
   displayResults({ booklist }) {
     // added spacers to format output
-    // console.log('this is from displayResults: ', booklist);
     console.log(booklist);
     const space3 = '   ';
     const space4 = '    ';
@@ -86,7 +70,6 @@ class App {
 
   displayMainMenu() {
     console.log('--- Main Menu ---\n');
-    // console.log('Please enter the number of a corresponding option: \n');
     console.log('1. View your current Reading List');
     console.log('2. Add to your Reading List');
     console.log('3. Start a new search');
@@ -153,7 +136,6 @@ class App {
   }
 
   addToReadingListOptions(err, user_input) {
-    // console.log(user_input);
     switch (user_input.option) {
       case '1':
         this.addBookToReadingList(0);
@@ -177,10 +159,6 @@ class App {
   }
 
   addBookToReadingList(option) {
-    // console.log(
-    //   'console log from addBookToReadingList: ',
-    //   results.booklist[option]
-    // );
     this.readingList.booklist.push(results.booklist[option]);
     let data = JSON.stringify(this.readingList, null, 2);
     fs.writeFile(path.join(__dirname, 'data.json'), data, (err) => {
