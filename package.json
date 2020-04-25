@@ -4,7 +4,9 @@
   "description": "command line application",
   "main": "bin/index.js",
   "scripts": {
-    "test": "mocha",
+    "testsetup": "node test/test_setup.js",
+    "test1": "mocha test/readinglist_test.js",
+    "test2": "mocha test/persistence_test.js",
     "start": "node src/index.js"
   },
   "repository": {

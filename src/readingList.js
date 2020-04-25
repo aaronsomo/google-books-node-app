@@ -22,6 +22,7 @@ class ReadingList {
   }
 
   addBookToReadingList(booklist, searchResults, option) {
+    // console.log('READING LIST LINE 25: ', booklist);
     if (
       this.readingListContainsBook(booklist, searchResults, option) === false
     ) {
@@ -31,14 +32,14 @@ class ReadingList {
       fs.writeFile(path.join(__dirname, 'data.json'), data, (err) => {
         if (err) throw err;
       });
-      console.clear();
+      // console.clear();
       console.log(
         `\nSuccessfully added "${
           booklist[booklist.length - 1].title
         }" to your Reading List! \n`
       );
     } else {
-      console.clear();
+      // console.clear();
       console.log('\nThat book is already in your Reading List\n');
     }
   }

@@ -67,7 +67,7 @@ class App {
     const space3 = '   ';
     const space4 = '    ';
 
-    console.clear();
+    // console.clear();
     console.log('\n');
     if (booklist === undefined || booklist.length === 0) {
       console.log('Sorry, the list is currently empty.\n');
@@ -197,8 +197,3 @@ class App {
 }
 
 module.exports = App;
-
-// tests
-// write a test that adds a book to list
-// write a test returns current reading list
-// write a test that starts a new search
