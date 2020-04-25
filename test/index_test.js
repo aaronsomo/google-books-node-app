@@ -72,7 +72,7 @@ describe('Search Function', function () {
 });
 
 describe('Persisting Data', function () {
-  it('persists reading list after adding from results', async function () {
+  it('persists reading list after adding from results', function () {
     const app = new App();
     const rawData = fs.readFileSync(path.join(__dirname, '../src/data.json'));
     const booklist = JSON.parse(rawData);
@@ -88,10 +88,10 @@ describe('Persisting Data', function () {
 
     app.addBookToReadingList(0);
 
-    assert.equal('Tests Persistence', await booklist.booklist[3].title);
+    assert.equal('Tests Persistence', booklist.booklist[3].title);
   });
 
-  it('persists reading list after adding from results', async function () {
+  it('persists reading list after adding from results', function () {
     const app = new App();
     const rawData = fs.readFileSync(path.join(__dirname, '../src/data.json'));
     const booklist = JSON.parse(rawData);
@@ -107,6 +107,6 @@ describe('Persisting Data', function () {
 
     app.addBookToReadingList(0);
 
-    assert.equal('Persistence Tester', await booklist.booklist[3].authors);
+    assert.equal('Persistence Tester', booklist.booklist[3].authors);
   });
 });

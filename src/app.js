@@ -88,7 +88,6 @@ class App {
       console.log('2. Start a new search');
       console.log('3. Exit \n');
 
-      // this.secondaryMenuPrompt();
       this.mainMenuPrompt();
     } else {
       console.log('--- Main Menu ---\n');
@@ -190,7 +189,6 @@ class App {
   }
 
   addBookToReadingList(option) {
-    // console.log(this.readingListContainsBook(option));
     if (this.readingListContainsBook(option) === false) {
       this.readingList.booklist.push(this.results.booklist[option]);
 
@@ -213,7 +211,6 @@ class App {
   }
 
   readingListContainsBook(index) {
-    // console.log(this.results.booklist);
     return this.readingList.booklist.some((book) => {
       if (book.title === this.results.booklist[index].title) {
         return true;

@@ -1,7 +1,5 @@
 const App = require('./app');
 const prompt = require('prompt');
-const fs = require('fs');
-const path = require('path');
 
 prompt.start();
 prompt.colors = false;
