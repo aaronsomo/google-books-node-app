@@ -17,14 +17,23 @@ class App {
     this.readingList = booklist;
 
     this.getRequest = new GetRequest();
+    this.init = this.init.bind(this);
+    this.showPrompt = this.showPrompt.bind(this);
     this.displayResults = this.displayResults.bind(this);
     this.mainMenuSelection = this.mainMenuSelection.bind(this);
+    this.secondaryMenuSelection = this.secondaryMenuSelection.bind(this);
     this.addToReadingListOptions = this.addToReadingListOptions.bind(this);
     this.getBooks = this.getBooks.bind(this);
   }
 
-  init() {
-    this.showPrompt();
+  init(number) {
+    if (number === 1) {
+      // console.log(this.readingList.booklist);
+      this.displayResults(this.readingList);
+      this.displayMainMenu();
+    } else {
+      this.showPrompt();
+    }
   }
 
   showPrompt() {
@@ -72,13 +81,25 @@ class App {
   }
 
   displayMainMenu() {
-    console.log('--- Main Menu ---\n');
-    console.log('1. View your current Reading List');
-    console.log('2. Add to your Reading List');
-    console.log('3. Start a new search');
-    console.log('4. Exit \n');
+    if (
+      this.results.booklist === undefined ||
+      this.results.booklist.length === 0
+    ) {
+      console.log('--- Main Menu ---\n');
+      console.log('1. View your current Reading List');
+      console.log('2. Start a new search');
+      console.log('3. Exit \n');
 
-    this.mainMenuPrompt();
+      this.secondaryMenuPrompt();
+    } else {
+      console.log('--- Main Menu ---\n');
+      console.log('1. View your current Reading List');
+      console.log('2. Add to your Reading List');
+      console.log('3. Start a new search');
+      console.log('4. Exit \n');
+
+      this.mainMenuPrompt();
+    }
   }
 
   mainMenuPrompt() {
@@ -91,6 +112,18 @@ class App {
     };
 
     prompt.get([menuSchema], this.mainMenuSelection);
+  }
+
+  secondaryMenuPrompt() {
+    const menuSchema2 = {
+      name: 'input',
+      description: 'Please enter the number of a corresponding option',
+      message: 'No input received. Please try again.',
+      type: 'string',
+      required: true,
+    };
+
+    prompt.get([menuSchema2], this.secondaryMenuSelection);
   }
 
   mainMenuSelection(err, user_input) {
@@ -115,8 +148,25 @@ class App {
     }
   }
 
+  secondaryMenuSelection(err, user_input) {
+    switch (user_input.input) {
+      case '1':
+        this.displayResults(this.readingList);
+        this.displayMainMenu();
+        break;
+      case '2':
+        this.showPrompt();
+        break;
+      case '3':
+        console.log('\nSee you next time!\n');
+        break;
+      default:
+        this.secondaryMenuPrompt();
+        break;
+    }
+  }
+
   addToReadingListMenu() {
-    console.log('console log from addToReadingListMenu: ', this.results);
     this.displayResults(this.results);
     console.log(
       'Please enter the number corresponding to the book you would like to add. \n'
@@ -137,14 +187,6 @@ class App {
   }
 
   addToReadingListOptions(err, user_input) {
-    // switch (user_input.option) {
-    //   case user_input.option:
-    //     this.addBookToReadingList(user_input.option - 1);
-    //     break;
-    //   default:
-    //     this.addToReadingListPrompt();
-    //     break;
-    // }
     if (
       user_input.option < 1 ||
       user_input.option > this.results.booklist.length

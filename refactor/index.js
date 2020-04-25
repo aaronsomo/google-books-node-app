@@ -1,5 +1,7 @@
 const App = require('./app');
 const prompt = require('prompt');
+const fs = require('fs');
+const path = require('path');
 
 prompt.start();
 prompt.colors = false;
@@ -20,8 +22,22 @@ const showPrompt = () => {
 };
 
 const introScreenMenu = (err, user_input) => {
-  if (user_input.input === '2') {
-    app.init();
+  //   if (user_input.input === '2') {
+  //     app.init();
+  //   }
+  switch (user_input.input) {
+    case '1':
+      app.init(1);
+      break;
+    case '2':
+      app.init(2);
+      break;
+    case '3':
+      console.log('\nSee you next time!\n');
+      break;
+    default:
+      this.mainMenuPrompt();
+      break;
   }
 };
 
