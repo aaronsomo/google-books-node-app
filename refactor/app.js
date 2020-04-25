@@ -90,7 +90,8 @@ class App {
       console.log('2. Start a new search');
       console.log('3. Exit \n');
 
-      this.secondaryMenuPrompt();
+      // this.secondaryMenuPrompt();
+      this.mainMenuPrompt();
     } else {
       console.log('--- Main Menu ---\n');
       console.log('1. View your current Reading List');
@@ -111,20 +112,25 @@ class App {
       required: true,
     };
 
-    prompt.get([menuSchema], this.mainMenuSelection);
+    prompt.get(
+      [menuSchema],
+      this.results.booklist
+        ? this.mainMenuSelection
+        : this.secondaryMenuSelection
+    );
   }
 
-  secondaryMenuPrompt() {
-    const menuSchema2 = {
-      name: 'input',
-      description: 'Please enter the number of a corresponding option',
-      message: 'No input received. Please try again.',
-      type: 'string',
-      required: true,
-    };
+  // secondaryMenuPrompt() {
+  //   const menuSchema2 = {
+  //     name: 'input',
+  //     description: 'Please enter the number of a corresponding option',
+  //     message: 'No input received. Please try again.',
+  //     type: 'string',
+  //     required: true,
+  //   };
 
-    prompt.get([menuSchema2], this.secondaryMenuSelection);
-  }
+  //   prompt.get([menuSchema2], this.secondaryMenuSelection);
+  // }
 
   mainMenuSelection(err, user_input) {
     switch (user_input.input) {
@@ -136,7 +142,6 @@ class App {
         this.addToReadingListMenu();
         break;
       case '3':
-        console.log('\n');
         this.showPrompt();
         break;
       case '4':
