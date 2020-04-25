@@ -2,10 +2,10 @@ const fs = require('fs');
 const path = require('path');
 const prompt = require('prompt');
 const GetRequest = require('./query').GetRequest;
+const ReadingList = require('./readingList').ReadingList;
 
-// const booklist = [];
-const rawdata = fs.readFileSync(path.join(__dirname, 'data.json'));
-const booklist = JSON.parse(rawdata);
+const rawData = fs.readFileSync(path.join(__dirname, 'data.json'));
+const booklist = JSON.parse(rawData);
 
 class App {
   constructor() {
@@ -15,12 +15,14 @@ class App {
     this.results = [];
 
     this.readingList = booklist;
+    // console.log('console.log from this.readingList: ', this.readingList);
 
     this.getRequest = new GetRequest();
+    // console.log('console.log from this.getRequest: ', this.getRequest);
 
     this.init = this.init.bind(this);
     this.showPrompt = this.showPrompt.bind(this);
-    this.getRequest = this.getRequest.getRequest.bind(this);
+    // this.getRequest = this.getRequest.bind(this);
     this.displayResults = this.displayResults.bind(this);
     this.displayMainMenu = this.displayMainMenu.bind(this);
     this.mainMenuPrompt = this.mainMenuPrompt.bind(this);
@@ -29,6 +31,7 @@ class App {
     this.addToReadingListPrompt = this.addToReadingListPrompt.bind(this);
     this.addToReadingListOptions = this.addToReadingListOptions.bind(this);
     this.addBookToReadingList = this.addBookToReadingList.bind(this);
+    this.getBooks = this.getBooks.bind(this);
   }
 
   init() {
@@ -36,7 +39,6 @@ class App {
   }
 
   showPrompt() {
-    // console.clear();
     console.log('\n');
     const schema = {
       name: 'query',
@@ -46,18 +48,30 @@ class App {
       required: true,
     };
 
-    prompt.get([schema], this.getRequest);
+    prompt.get([schema], this.getBooks);
+  }
+
+  getBooks(err, user_input) {
+    this.getRequest.getRequest(err, user_input).then((data) => {
+      console.log('console.log in getBooks(): ', data.items.length);
+      if (data.totalItems === 0) {
+        console.log("No books found :'( . Please try again.");
+        this.showPrompt();
+      } else {
+        this.results = new ReadingList(data.items);
+        this.displayResults(this.results);
+        this.displayMainMenu();
+      }
+    });
   }
 
   displayResults({ booklist }) {
-    // added spacers to format output
-    console.log(booklist);
     const space3 = '   ';
     const space4 = '    ';
 
     console.clear();
     console.log('\n');
-    if (booklist === undefined) {
+    if (booklist === undefined || booklist.length === 0) {
       console.log('Sorry, the list is currently empty.\n');
     } else {
       booklist.forEach(({ title, authors, publisher }, index) => {
@@ -93,15 +107,13 @@ class App {
   mainMenuSelection(err, user_input) {
     switch (user_input.input) {
       case '1':
-        this.displayResults(this.readingList) || 'Your list is currently empty';
+        this.displayResults(this.readingList);
         this.displayMainMenu();
         break;
       case '2':
-        // function to add to reading list
         this.addToReadingListMenu();
         break;
       case '3':
-        // call search function for another query
         console.log('\n');
         this.showPrompt();
         break;
@@ -115,8 +127,8 @@ class App {
   }
 
   addToReadingListMenu() {
-    console.log('console log from addToReadingListMenu: ', results);
-    this.displayResults(results);
+    console.log('console log from addToReadingListMenu: ', this.results);
+    this.displayResults(this.results);
     console.log(
       'Please enter the number corresponding to the book you would like to add. \n'
     );
@@ -136,26 +148,6 @@ class App {
   }
 
   addToReadingListOptions(err, user_input) {
-    // switch (user_input.option) {
-    //   case '1':
-    //     this.addBookToReadingList(0);
-    //     break;
-    //   case '2':
-    //     this.addBookToReadingList(1);
-    //     break;
-    //   case '3':
-    //     this.addBookToReadingList(2);
-    //     break;
-    //   case '4':
-    //     this.addBookToReadingList(3);
-    //     break;
-    //   case '5':
-    //     this.addBookToReadingList(4);
-    //     break;
-    //   default:
-    //     this.addToReadingListPrompt();
-    //     break;
-    // }
     switch (user_input.option) {
       case user_input.option:
         this.addBookToReadingList(user_input.option - 1);
@@ -167,7 +159,7 @@ class App {
   }
 
   addBookToReadingList(option) {
-    this.readingList.booklist.push(results.booklist[option]);
+    this.readingList.booklist.push(this.results.booklist[option]);
     let data = JSON.stringify(this.readingList, null, 2);
     // fs.writeFile(path.join(__dirname, 'data.json'), data, (err) => {
     //   if (err) throw err;
@@ -179,7 +171,6 @@ class App {
       }" to your Reading List! \n`
     );
 
-    // prompt for more options
     this.displayMainMenu();
   }
 }

@@ -1,11 +1,5 @@
-// let index_test = require('../bin/index.js');
 let assert = require('assert');
 let App = require('../refactor/app');
-
-// console.log(
-//   'console log from line 4: ',
-//   index_test.getRequest(null, { query: 'harry potter' })
-// );
 
 describe('Booklist', function () {
   console.clear();
