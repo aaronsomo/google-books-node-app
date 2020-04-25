@@ -190,19 +190,38 @@ class App {
   }
 
   addBookToReadingList(option) {
-    this.readingList.booklist.push(this.results.booklist[option]);
-    let data = JSON.stringify(this.readingList, null, 2);
-    fs.writeFile(path.join(__dirname, 'data.json'), data, (err) => {
-      if (err) throw err;
-    });
-    console.clear();
-    console.log(
-      `\nSuccessfully added "${
-        this.readingList.booklist[this.readingList.booklist.length - 1].title
-      }" to your Reading List! \n`
-    );
+    // console.log(this.readingListContainsBook(option));
+    if (this.readingListContainsBook(option) === false) {
+      this.readingList.booklist.push(this.results.booklist[option]);
+
+      let data = JSON.stringify(this.readingList, null, 2);
+      fs.writeFile(path.join(__dirname, 'data.json'), data, (err) => {
+        if (err) throw err;
+      });
+      console.clear();
+      console.log(
+        `\nSuccessfully added "${
+          this.readingList.booklist[this.readingList.booklist.length - 1].title
+        }" to your Reading List! \n`
+      );
+    } else {
+      console.clear();
+      console.log('\nThat book is already in your Reading List\n');
+    }
 
     this.displayMainMenu();
+  }
+
+  readingListContainsBook(index) {
+    // console.log(this.results.booklist);
+    return this.readingList.booklist.some((book) => {
+      if (book.title === this.results.booklist[index].title) {
+        return true;
+      }
+      if (book.title != this.results.booklist[index].title) {
+        return false;
+      }
+    });
   }
 }
 

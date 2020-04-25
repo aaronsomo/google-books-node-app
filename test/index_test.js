@@ -1,7 +1,6 @@
 let assert = require('assert');
 let App = require('../src/app');
 const stdin = require('mock-stdin').stdin();
-const moxios = require('moxios');
 const fs = require('fs');
 const path = require('path');
 
@@ -56,33 +55,19 @@ describe('Reading List', function () {
 
     app.addBookToReadingList(0);
 
-    // assert.equal(3, app.readingList.booklist.length); // gets larger as you add books due to persistence
     assert.equal('Tester', app.readingList.booklist[2].authors);
   });
 });
 
 describe('Search Function', function () {
-  // beforeEach(function () {
-  //   moxios.install();
-  // });
-
-  // afterEach(function () {
-  //   moxios.uninstall();
-  // });
-
   it('prompting search adds book to results', async function () {
     const app = new App();
-    // moxios.stubRequest(
-    //   'https://www.googleapis.com/books/v1/volumes?maxResults=5&q=drake',
-    //   { items: [], totalItems: [] }
-    // );
+
     assert.equal(0, app.results.length);
     await app.getBooks(null, { query: 'drake' });
 
     stdin.send('4');
-    // moxios.wait(function () {
     assert.notEqual(0, app.results.length);
-    // });
   });
 });
 
