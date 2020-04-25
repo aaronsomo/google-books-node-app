@@ -137,13 +137,22 @@ class App {
   }
 
   addToReadingListOptions(err, user_input) {
-    switch (user_input.option) {
-      case user_input.option:
-        this.addBookToReadingList(user_input.option - 1);
-        break;
-      default:
-        this.addToReadingListPrompt();
-        break;
+    // switch (user_input.option) {
+    //   case user_input.option:
+    //     this.addBookToReadingList(user_input.option - 1);
+    //     break;
+    //   default:
+    //     this.addToReadingListPrompt();
+    //     break;
+    // }
+    if (
+      user_input.option < 1 ||
+      user_input.option > this.results.booklist.length
+    ) {
+      console.log('\nPlease enter a valid option.');
+      this.addToReadingListPrompt();
+    } else {
+      this.addBookToReadingList(user_input.option - 1);
     }
   }
 
