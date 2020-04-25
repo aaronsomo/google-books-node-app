@@ -21,21 +21,21 @@ class ReadingList {
     }
   }
 
-  addBookToReadingList(booklist, searchResults, option) {
-    // console.log('READING LIST LINE 25: ', booklist);
+  addBookToReadingList(readingList, searchResults, option) {
+    // console.log('READING LIST LINE 25: ', readingList);
     if (
-      this.readingListContainsBook(booklist, searchResults, option) === false
+      this.readingListContainsBook(readingList, searchResults, option) === false
     ) {
-      booklist.push(searchResults[option]);
+      readingList.booklist.push(searchResults.booklist[option]);
 
-      let data = JSON.stringify(booklist, null, 2);
+      let data = JSON.stringify(readingList, null, 2);
       fs.writeFile(path.join(__dirname, 'data.json'), data, (err) => {
         if (err) throw err;
       });
-      // console.clear();
+      console.clear();
       console.log(
         `\nSuccessfully added "${
-          booklist[booklist.length - 1].title
+          readingList.booklist[readingList.booklist.length - 1].title
         }" to your Reading List! \n`
       );
     } else {
@@ -44,12 +44,13 @@ class ReadingList {
     }
   }
 
-  readingListContainsBook(booklist, searchResults, index) {
-    return booklist.some((book) => {
-      if (book.title === searchResults[index].title) {
+  readingListContainsBook(readingList, searchResults, index) {
+    // console.log('readingList.js line 52: ', readingList);
+    return readingList.booklist.some((book) => {
+      if (book.title === searchResults.booklist[index].title) {
         return true;
       }
-      if (book.title != searchResults[index].title) {
+      if (book.title != searchResults.booklist[index].title) {
         return false;
       }
     });

@@ -13,16 +13,16 @@ describe('Persisting Data', function () {
   it('persists reading list after adding from results', function () {
     const app = new App();
     const rawData = fs.readFileSync(path.join(__dirname, '../src/data.json'));
-    const booklist = JSON.parse(rawData);
+    const readingList = JSON.parse(rawData);
 
-    assert.equal('Result Book', booklist[2].title);
+    assert.equal('Result Book', readingList.booklist[2].title);
   });
 
   it('persists reading list after adding from results', function () {
     const app = new App();
     const rawData = fs.readFileSync(path.join(__dirname, '../src/data.json'));
-    const booklist = JSON.parse(rawData);
+    const readingList = JSON.parse(rawData);
 
-    assert.equal('Result Tester', booklist[2].authors);
+    assert.equal('Result Tester', readingList.booklist[2].authors);
   });
 });

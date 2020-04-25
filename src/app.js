@@ -30,6 +30,7 @@ class App {
 
   init(number) {
     if (number === 1) {
+      console.log('line 33: ', this.readingList);
       this.displayResults(this.readingList);
       this.displayMainMenu();
     } else {
@@ -66,7 +67,7 @@ class App {
   displayResults({ booklist }) {
     const space3 = '   ';
     const space4 = '    ';
-
+    console.log('booklist: ', booklist);
     // console.clear();
     console.log('\n');
     if (booklist === undefined || booklist.length === 0) {
@@ -187,8 +188,8 @@ class App {
       this.addToReadingListPrompt();
     } else {
       this.addBookToReadingList.addBookToReadingList(
-        this.readingList.booklist,
-        this.results.booklist,
+        this.readingList,
+        this.results,
         user_input.option - 1
       );
       this.displayMainMenu();

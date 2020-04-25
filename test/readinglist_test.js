@@ -72,8 +72,8 @@ describe('Reading List', function () {
     };
 
     app.addBookToReadingList.addBookToReadingList(
-      app.readingList.booklist,
-      app.results.booklist,
+      app.readingList,
+      app.results,
       0
     );
 
