@@ -15,22 +15,11 @@ class App {
     this.results = [];
 
     this.readingList = booklist;
-    // console.log('console.log from this.readingList: ', this.readingList);
 
     this.getRequest = new GetRequest();
-    // console.log('console.log from this.getRequest: ', this.getRequest);
-
-    this.init = this.init.bind(this);
-    this.showPrompt = this.showPrompt.bind(this);
-    // this.getRequest = this.getRequest.bind(this);
     this.displayResults = this.displayResults.bind(this);
-    this.displayMainMenu = this.displayMainMenu.bind(this);
-    this.mainMenuPrompt = this.mainMenuPrompt.bind(this);
     this.mainMenuSelection = this.mainMenuSelection.bind(this);
-    this.addToReadingListMenu = this.addToReadingListMenu.bind(this);
-    this.addToReadingListPrompt = this.addToReadingListPrompt.bind(this);
     this.addToReadingListOptions = this.addToReadingListOptions.bind(this);
-    this.addBookToReadingList = this.addBookToReadingList.bind(this);
     this.getBooks = this.getBooks.bind(this);
   }
 

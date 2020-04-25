@@ -21,7 +21,6 @@ const showPrompt = () => {
 
 const introScreenMenu = (err, user_input) => {
   if (user_input.input === '2') {
-    // global.app = new App();
     app.init();
   }
 };
