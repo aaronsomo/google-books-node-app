@@ -30,7 +30,6 @@ class App {
 
   init(number) {
     if (number === 1) {
-      console.log('line 33: ', this.readingList);
       this.displayResults(this.readingList);
       this.displayMainMenu();
     } else {
@@ -67,8 +66,8 @@ class App {
   displayResults({ booklist }) {
     const space3 = '   ';
     const space4 = '    ';
-    console.log('booklist: ', booklist);
-    // console.clear();
+
+    console.clear();
     console.log('\n');
     if (booklist === undefined || booklist.length === 0) {
       console.log('Sorry, the list is currently empty.\n');

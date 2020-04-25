@@ -6,9 +6,6 @@ const stdin = require('mock-stdin').stdin();
 const fs = require('fs');
 const path = require('path');
 
-console.log = () => {};
-console.clear = () => {};
-
 describe('Persisting Data', function () {
   it('persists reading list after adding from results', function () {
     const app = new App();

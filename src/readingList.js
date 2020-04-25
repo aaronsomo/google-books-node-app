@@ -22,7 +22,6 @@ class ReadingList {
   }
 
   addBookToReadingList(readingList, searchResults, option) {
-    // console.log('READING LIST LINE 25: ', readingList);
     if (
       this.readingListContainsBook(readingList, searchResults, option) === false
     ) {
@@ -39,13 +38,12 @@ class ReadingList {
         }" to your Reading List! \n`
       );
     } else {
-      // console.clear();
+      console.clear();
       console.log('\nThat book is already in your Reading List\n');
     }
   }
 
   readingListContainsBook(readingList, searchResults, index) {
-    // console.log('readingList.js line 52: ', readingList);
     return readingList.booklist.some((book) => {
       if (book.title === searchResults.booklist[index].title) {
         return true;
