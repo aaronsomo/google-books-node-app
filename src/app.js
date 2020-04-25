@@ -28,7 +28,6 @@ class App {
 
   init(number) {
     if (number === 1) {
-      // console.log(this.readingList.booklist);
       this.displayResults(this.readingList);
       this.displayMainMenu();
     } else {
@@ -50,8 +49,7 @@ class App {
   }
 
   getBooks(err, user_input) {
-    this.getRequest.getRequest(err, user_input).then((data) => {
-      console.log('console.log in getBooks(): ', data.items.length);
+    return this.getRequest.getRequest(err, user_input).then((data) => {
       if (data.totalItems === 0) {
         console.log("No books found :'( . Please try again.");
         this.showPrompt();
@@ -119,18 +117,6 @@ class App {
         : this.secondaryMenuSelection
     );
   }
-
-  // secondaryMenuPrompt() {
-  //   const menuSchema2 = {
-  //     name: 'input',
-  //     description: 'Please enter the number of a corresponding option',
-  //     message: 'No input received. Please try again.',
-  //     type: 'string',
-  //     required: true,
-  //   };
-
-  //   prompt.get([menuSchema2], this.secondaryMenuSelection);
-  // }
 
   mainMenuSelection(err, user_input) {
     switch (user_input.input) {
@@ -206,9 +192,9 @@ class App {
   addBookToReadingList(option) {
     this.readingList.booklist.push(this.results.booklist[option]);
     let data = JSON.stringify(this.readingList, null, 2);
-    // fs.writeFile(path.join(__dirname, 'data.json'), data, (err) => {
-    //   if (err) throw err;
-    // });
+    fs.writeFile(path.join(__dirname, 'data.json'), data, (err) => {
+      if (err) throw err;
+    });
     console.clear();
     console.log(
       `\nSuccessfully added "${
