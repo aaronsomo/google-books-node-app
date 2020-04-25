@@ -24,6 +24,8 @@ class App {
     this.secondaryMenuSelection = this.secondaryMenuSelection.bind(this);
     this.addToReadingListOptions = this.addToReadingListOptions.bind(this);
     this.getBooks = this.getBooks.bind(this);
+
+    this.addBookToReadingList = new ReadingList();
   }
 
   init(number) {
@@ -184,42 +186,47 @@ class App {
       console.log('\nPlease enter a valid option.');
       this.addToReadingListPrompt();
     } else {
-      this.addBookToReadingList(user_input.option - 1);
-    }
-  }
-
-  addBookToReadingList(option) {
-    if (this.readingListContainsBook(option) === false) {
-      this.readingList.booklist.push(this.results.booklist[option]);
-
-      let data = JSON.stringify(this.readingList, null, 2);
-      fs.writeFile(path.join(__dirname, 'data.json'), data, (err) => {
-        if (err) throw err;
-      });
-      console.clear();
-      console.log(
-        `\nSuccessfully added "${
-          this.readingList.booklist[this.readingList.booklist.length - 1].title
-        }" to your Reading List! \n`
+      this.addBookToReadingList.addBookToReadingList(
+        this.readingList.booklist,
+        this.results.booklist,
+        user_input.option - 1
       );
-    } else {
-      console.clear();
-      console.log('\nThat book is already in your Reading List\n');
+      this.displayMainMenu();
     }
-
-    this.displayMainMenu();
   }
 
-  readingListContainsBook(index) {
-    return this.readingList.booklist.some((book) => {
-      if (book.title === this.results.booklist[index].title) {
-        return true;
-      }
-      if (book.title != this.results.booklist[index].title) {
-        return false;
-      }
-    });
-  }
+  // addBookToReadingList(option) {
+  //   if (this.readingListContainsBook(option) === false) {
+  //     this.readingList.booklist.push(this.results.booklist[option]);
+
+  //     let data = JSON.stringify(this.readingList, null, 2);
+  //     fs.writeFile(path.join(__dirname, 'data.json'), data, (err) => {
+  //       if (err) throw err;
+  //     });
+  //     console.clear();
+  //     console.log(
+  //       `\nSuccessfully added "${
+  //         this.readingList.booklist[this.readingList.booklist.length - 1].title
+  //       }" to your Reading List! \n`
+  //     );
+  //   } else {
+  //     console.clear();
+  //     console.log('\nThat book is already in your Reading List\n');
+  //   }
+
+  //   this.displayMainMenu();
+  // }
+
+  // readingListContainsBook(index) {
+  //   return this.readingList.booklist.some((book) => {
+  //     if (book.title === this.results.booklist[index].title) {
+  //       return true;
+  //     }
+  //     if (book.title != this.results.booklist[index].title) {
+  //       return false;
+  //     }
+  //   });
+  // }
 }
 
 module.exports = App;

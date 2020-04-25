@@ -1,4 +1,6 @@
 const Book = require('./book').Book;
+const fs = require('fs');
+const path = require('path');
 
 class ReadingList {
   constructor(data) {
@@ -17,6 +19,44 @@ class ReadingList {
       this.books = [];
       console.log('Error creating list...');
     }
+  }
+
+  addBookToReadingList(booklist, searchResults, option) {
+    if (
+      this.readingListContainsBook(booklist, searchResults, option) === false
+    ) {
+      booklist.push(searchResults[option]);
+
+      // let data = JSON.stringify(booklist, null, 2);
+      // fs.writeFile(path.join(__dirname, 'data.json'), data, (err) => {
+      //   if (err) throw err;
+      // });
+      console.clear();
+      console.log(
+        `\nSuccessfully added "${
+          booklist[booklist.length - 1].title
+        }" to your Reading List! \n`
+      );
+    } else {
+      console.clear();
+      console.log('\nThat book is already in your Reading List\n');
+    }
+
+    // this.displayMainMenu();
+  }
+
+  readingListContainsBook(booklist, searchResults, index) {
+    // console.log('READING LIST: ', booklist);
+    // console.log('RESULTS LIST: ', searchResults);
+    // console.log('BOOK LIST: ', data);
+    return booklist.some((book) => {
+      if (book.title === searchResults[index].title) {
+        return true;
+      }
+      if (book.title != searchResults[index].title) {
+        return false;
+      }
+    });
   }
 }
 
