@@ -12,11 +12,13 @@ class App {
     prompt.start();
     prompt.colors = false;
     prompt.message = '';
-    this.results = [];
 
+    this.results = [];
     this.readingList = booklist;
 
     this.getRequest = new GetRequest();
+    this.addBookToReadingList = new ReadingList();
+
     this.init = this.init.bind(this);
     this.showPrompt = this.showPrompt.bind(this);
     this.displayResults = this.displayResults.bind(this);
@@ -24,8 +26,6 @@ class App {
     this.secondaryMenuSelection = this.secondaryMenuSelection.bind(this);
     this.addToReadingListOptions = this.addToReadingListOptions.bind(this);
     this.getBooks = this.getBooks.bind(this);
-
-    this.addBookToReadingList = new ReadingList();
   }
 
   init(number) {
@@ -194,39 +194,6 @@ class App {
       this.displayMainMenu();
     }
   }
-
-  // addBookToReadingList(option) {
-  //   if (this.readingListContainsBook(option) === false) {
-  //     this.readingList.booklist.push(this.results.booklist[option]);
-
-  //     let data = JSON.stringify(this.readingList, null, 2);
-  //     fs.writeFile(path.join(__dirname, 'data.json'), data, (err) => {
-  //       if (err) throw err;
-  //     });
-  //     console.clear();
-  //     console.log(
-  //       `\nSuccessfully added "${
-  //         this.readingList.booklist[this.readingList.booklist.length - 1].title
-  //       }" to your Reading List! \n`
-  //     );
-  //   } else {
-  //     console.clear();
-  //     console.log('\nThat book is already in your Reading List\n');
-  //   }
-
-  //   this.displayMainMenu();
-  // }
-
-  // readingListContainsBook(index) {
-  //   return this.readingList.booklist.some((book) => {
-  //     if (book.title === this.results.booklist[index].title) {
-  //       return true;
-  //     }
-  //     if (book.title != this.results.booklist[index].title) {
-  //       return false;
-  //     }
-  //   });
-  // }
 }
 
 module.exports = App;

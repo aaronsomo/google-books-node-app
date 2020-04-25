@@ -27,10 +27,10 @@ class ReadingList {
     ) {
       booklist.push(searchResults[option]);
 
-      // let data = JSON.stringify(booklist, null, 2);
-      // fs.writeFile(path.join(__dirname, 'data.json'), data, (err) => {
-      //   if (err) throw err;
-      // });
+      let data = JSON.stringify(booklist, null, 2);
+      fs.writeFile(path.join(__dirname, 'data.json'), data, (err) => {
+        if (err) throw err;
+      });
       console.clear();
       console.log(
         `\nSuccessfully added "${
@@ -41,14 +41,9 @@ class ReadingList {
       console.clear();
       console.log('\nThat book is already in your Reading List\n');
     }
-
-    // this.displayMainMenu();
   }
 
   readingListContainsBook(booklist, searchResults, index) {
-    // console.log('READING LIST: ', booklist);
-    // console.log('RESULTS LIST: ', searchResults);
-    // console.log('BOOK LIST: ', data);
     return booklist.some((book) => {
       if (book.title === searchResults[index].title) {
         return true;
