@@ -2,7 +2,7 @@
 
 Please follow these steps to install and start the application:
 
-1. Download or clone the repo and navigate to the directory in Terminal on either macOS or Windows.
+1. Download or clone the repo and navigate to the directory in Terminal.
 2. Install node-modules for libraries and dependencies required in order to run the application.
 3. Run the application and, optionally, test the application.
 
