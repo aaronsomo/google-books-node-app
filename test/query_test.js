@@ -2,6 +2,8 @@ let assert = require('assert');
 const App = require('../src/app');
 const stdin = require('mock-stdin').stdin();
 
+console.clear = () => {};
+
 describe('Search Function', function () {
   it('prompting search adds book to results', async function () {
     const app = new App();

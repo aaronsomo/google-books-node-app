@@ -9,6 +9,7 @@
     "test2": "mocha test/persistence_test.js",
     "test3": "mocha test/query_test.js",
     "test": "npm run testsetup && npm run test1 && npm run test2 && npm run test3 && npm run testsetup",
+    "clear": "node test/clear_data.js",
     "start": "node src/index.js"
   },
   "repository": {
