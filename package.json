@@ -26,7 +26,7 @@
     "hello": "./bin/index.js"
   },
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "mocha": "^7.1.1",
     "mock-stdin": "^1.0.0",
     "moxios": "^0.4.0",
